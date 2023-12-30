@@ -48,28 +48,35 @@ function button_click_script(){
     <script defer>
         let allLcButtons = document.querySelectorAll('.lc_button_click_register') || undefined
         if(allLcButtons){
+            let ajaxRequest = () => {
+                let xhr = new XMLHttpRequest();
+                    xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); ?>', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            let res = xhr.responseText;
+                            console.log(res)
+                        }
+                    };
+                    
+                    let data = new FormData();
+                    data.append('action', 'register_click');
+                    data.append('clickMoment', 'data-atual')
+
+                    xhr.send(data);
+            }
             allLcButtons.forEach(button => {
-                button.addEventListener('click',() => {
-                    jQuery.ajax({
-                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
-                        type: "POST",
-                        cache: false,
-                        data:{ 
-                            action: 'send_email', 
-                            clickMoment: moment(),
-                        },
-                        success:function(res){}
-                    }); 
-                })
+                button.addEventListener('click', ajaxRequest)
             })
+            
         }
     </script>
 <?php
 }
 
-add_action( 'wp_ajax_register_click', 'register_click' );
-add_action( 'wp_ajax_nopriv_register_click', 'register_click' );
+add_action( 'wp_ajax_register_click', 'callback_register_click' );
+add_action( 'wp_ajax_nopriv_register_click', 'callback_register_click' );
 
-function register_click(){
-    
+function callback_register_click(){
+    $_REQUEST['clickMoment'];
 }
