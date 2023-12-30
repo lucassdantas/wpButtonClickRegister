@@ -44,3 +44,4 @@ function button_click_register(){
 require_once plugin_dir_path(__FILE__) . 'src/button_click_add_script.php';
 require_once plugin_dir_path(__FILE__) . 'src/callback_register_click.php';
 
+do_action( 'lc_button_click_register_loaded' );
