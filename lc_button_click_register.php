@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Button Click Register
  * Description: add a button that register Clicks with shortcode [lc_button_click_register]
- * Plugin URI:  https://github.com/lucassdantas/wpButtonClickRegister.git
+ * Plugin URI:  https://github.com/lucassdantas/wp_lcButtonClickRegister
  * Version:     1.0.0
  * Author:      Lucas Dantas
  * Author URI:  linkedin.com/in/lucas-de-sousa-dantas/
