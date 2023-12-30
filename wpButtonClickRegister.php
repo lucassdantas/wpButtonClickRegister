@@ -25,7 +25,7 @@ function create_clicks_register_table() {
 
 	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		click_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		click_time varchar(255)  NOT NULL,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
 

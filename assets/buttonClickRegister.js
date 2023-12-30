@@ -18,7 +18,7 @@ if(allLcButtons){
                     action: 'register_click', 
                     clickMoment: currentDate
                 },
-                success:function(res){console.log(res)}
+                success:function(res){console.log(res + ' ')}
             })
         }
 
