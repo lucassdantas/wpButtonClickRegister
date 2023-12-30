@@ -16,7 +16,6 @@
 register_activation_hook( __FILE__, 'onPluginActivation' );
 function onPluginActivation() {
     create_clicks_register_table();
-
 }
 function create_clicks_register_table() {
     global $wpdb;
@@ -42,21 +41,7 @@ function button_click_register(){
 }
 
 
-add_action('wp_footer', 'button_click_script');
-function button_click_script(){
-    wp_register_script( 
-        'button_click_register_script', 
-        plugins_url('/assets/buttonClickRegister.js', __FILE__), 
-        array('jquery')
-    );
-
-    wp_enqueue_script( 'button_click_register_script' );
-    wp_localize_script( 
-        'button_click_register_script', 
-        'ajaxUrlFromBackEnd', 
-        array(admin_url('admin-ajax.php')) ); 
-    echo admin_url('admin-ajax.php');
-}
+require_once plugin_dir_path(__FILE__) . 'src/button_click_add_script.php';
 
 add_action( 'wp_ajax_register_click', 'callback_register_click' );
 add_action( 'wp_ajax_nopriv_register_click', 'callback_register_click' );

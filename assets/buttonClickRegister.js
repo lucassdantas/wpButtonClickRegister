@@ -8,14 +8,13 @@ if(allLcButtons){
                 cache: false,
                 data:{ 
                     action: 'register_click', 
-                    clickMoment: "hoje"
+                    clickMoment: Date()
                 },
                 success:function(res){console.log(res)}
             })
         }
         allLcButtons.forEach(button => {
             button.addEventListener('click', ajaxRequest)
-            console.log(button)
         })
     })
 }
