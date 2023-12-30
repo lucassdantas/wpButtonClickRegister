@@ -42,12 +42,5 @@ function button_click_register(){
 
 
 require_once plugin_dir_path(__FILE__) . 'src/button_click_add_script.php';
+require_once plugin_dir_path(__FILE__) . 'src/callback_register_click.php';
 
-add_action( 'wp_ajax_register_click', 'callback_register_click' );
-add_action( 'wp_ajax_nopriv_register_click', 'callback_register_click' );
-
-function callback_register_click(){
-    $_REQUEST['clickMoment'];
-    echo $_REQUEST['clickMoment'];
-
-}
