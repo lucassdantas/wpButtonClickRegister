@@ -13,11 +13,10 @@
 }
 
 
-register_activation_hook( __FILE__, 'create_table_and_shortcode' );
-function create_table_and_shortcode() {
+register_activation_hook( __FILE__, 'onPluginActivation' );
+function onPluginActivation() {
     create_clicks_register_table();
 
-    add_shortcode('lc_button_click_register', 'button_click_register');
 }
 function create_clicks_register_table() {
     global $wpdb;
@@ -42,36 +41,21 @@ function button_click_register(){
     echo "<a class='lc_button_click_register'>Botão de registro</a>";
 }
 
+
 add_action('wp_footer', 'button_click_script');
 function button_click_script(){
-?>
-    <script defer>
-        let allLcButtons = document.querySelectorAll('.lc_button_click_register') || undefined
-        if(allLcButtons){
-            let ajaxRequest = () => {
-                let xhr = new XMLHttpRequest();
-                    xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); ?>', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            let res = xhr.responseText;
-                            console.log(res)
-                        }
-                    };
-                    
-                    let data = new FormData();
-                    data.append('action', 'register_click');
-                    data.append('clickMoment', 'data-atual')
+    wp_register_script( 
+        'button_click_register_script', 
+        plugins_url('/assets/buttonClickRegister.js', __FILE__), 
+        array('jquery')
+    );
 
-                    xhr.send(data);
-            }
-            allLcButtons.forEach(button => {
-                button.addEventListener('click', ajaxRequest)
-            })
-            
-        }
-    </script>
-<?php
+    wp_enqueue_script( 'button_click_register_script' );
+    wp_localize_script( 
+        'button_click_register_script', 
+        'ajaxUrlFromBackEnd', 
+        array(admin_url('admin-ajax.php')) ); 
+    echo admin_url('admin-ajax.php');
 }
 
 add_action( 'wp_ajax_register_click', 'callback_register_click' );
@@ -79,4 +63,6 @@ add_action( 'wp_ajax_nopriv_register_click', 'callback_register_click' );
 
 function callback_register_click(){
     $_REQUEST['clickMoment'];
+    echo $_REQUEST['clickMoment'];
+
 }
