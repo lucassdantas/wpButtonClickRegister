@@ -37,7 +37,7 @@ function create_clicks_register_table() {
 
 add_shortcode('lc_button_click_register', 'button_click_register');
 function button_click_register(){
-    echo "<a class='lc_button_click_register'>Botão de registro</a>";
+    return "<a class='lc_button_click_register'>Botão de registro</a>";
 }
 
 
